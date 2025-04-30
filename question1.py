@@ -12,44 +12,28 @@ def encrypt(text, n, m):
         if 'a' <= char <= 'z':
             # if the letter is in first half (a-m)
             if char<='m':
-                shift_value = n*m
-                remaining_shift = (shift_value-(ord('z')-ord(char))) % 26
-                if remaining_shift < 0:
-                    transformed_char = chr(ord('z')+remaining_shift)
-                else:
-                    transformed_char = chr(ord('a')-1+remaining_shift)
+                shift = (n * m - (ord('z') - ord(char))) % 26
+                transformed_char = chr(ord('a') + shift - 1)
                 encrypted_text += transformed_char
 
             # if the letter is in second half (n-z)
             else:
-                shift_value = n+m
-                remaining_shift = (shift_value-(ord(char)-ord('a'))) % 26
-                if remaining_shift < 0:
-                    transformed_char = chr(ord('a')+remaining_shift)
-                else:
-                    transformed_char = chr(ord('z')+1-remaining_shift)
+                shift = (n + m - (ord(char) - ord('a'))) % 26
+                transformed_char = chr(ord('z') + 1 - shift)
                 encrypted_text += transformed_char
 
         # logic for uppercase letters
         elif 'A' <= char <= 'Z':
             # if the letter is in first half (A-M)
             if char<='M':
-                shift_value = n
-                remaining_shift = (shift_value-(ord(char)-ord('A'))) % 26
-                if remaining_shift < 0:
-                    transformed_char = chr(ord('A')+remaining_shift)
-                else:
-                    transformed_char = chr(ord('Z')+1-remaining_shift)
+                shift = (n - (ord(char) - ord('A'))) % 26
+                transformed_char = chr(ord('Z') + 1 - shift)
                 encrypted_text += transformed_char
 
             # if the letter is in first half (N-Z)    
             else:
-                shift_value = m**2
-                remaining_shift = (shift_value-(ord('Z')-ord(char))) % 26
-                if remaining_shift < 0:
-                    transformed_char = chr(ord('Z')+remaining_shift)
-                else:
-                    transformed_char = chr(ord('A')-1+remaining_shift)
+                shift = (m ** 2 - (ord('Z') - ord(char))) % 26
+                transformed_char = chr(ord('A') + shift - 1)
                 encrypted_text += transformed_char
 
         # logic for all other characters and numbers
