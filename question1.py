@@ -1,13 +1,14 @@
 def main():
-    text = 'BcOp'
-    print(text)
-    enc_text = encrypt(text, n=2, m=2)
+    file = open("raw_text.txt", "r")
+    text = file.read()
+    enc_text = encrypt(text)
     print(enc_text)
 
-def encrypt(text, n, m):
+def encrypt(text):
     encrypted_text = ''
+    m = input('Enter the value of m:')
+    n = input('Enter the value of n:')
     for char in text:
-
         # logic for lowercase letters
         if 'a' <= char <= 'z':
             # if the letter is in first half (a-m)
