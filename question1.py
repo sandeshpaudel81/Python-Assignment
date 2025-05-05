@@ -3,6 +3,8 @@ def main():
     print(text)
     enc_text = encrypt(text, n=2, m=2)
     print(enc_text)
+    dec_text = decrypt(enc_text, n=2, m=2)
+    print("Decrypted text:", dec_text)
 
 def encrypt(text, n, m):
     encrypted_text = ''
@@ -56,6 +58,49 @@ def encrypt(text, n, m):
         else:
             encrypted_text += char
     return encrypted_text
+
+def decrypt(encrypted_text, n, m):
+    decrypted_text = ''
+    for char in encrypted_text:
+        
+        # logic for lowercase letters
+        if 'a' <= char <= 'z':
+            # Originally from a-m (shifted forward by n * m)
+            if char <= 'm':
+                shift_value = n * m
+                remaining_shift = (ord(char) - ord('a') - shift_value) % 26
+                transformed_char = chr(ord('a') + remaining_shift)
+                decrypted_text += transformed_char
+
+            # Originally from n-z (shifted backward by n + m)
+            else:
+                shift_value = n + m
+                remaining_shift = (ord(char) - ord('a') + shift_value) % 26
+                transformed_char = chr(ord('a') + remaining_shift)
+                decrypted_text += transformed_char
+
+        # logic for uppercase letters
+        elif 'A' <= char <= 'Z':
+            # Originally from A-M (shifted backward by n)
+            if char <= 'M':
+                shift_value = n
+                remaining_shift = (ord(char) - ord('A') + shift_value) % 26
+                transformed_char = chr(ord('A') + remaining_shift)
+                decrypted_text += transformed_char
+
+            # Originally from N-Z (shifted forward by m^2)
+            else:
+                shift_value = m ** 2
+                remaining_shift = (ord(char) - ord('A') - shift_value) % 26
+                transformed_char = chr(ord('A') + remaining_shift)
+                decrypted_text += transformed_char
+
+        # logic for non-alphabetic characters
+        else:
+            decrypted_text += char
+
+    print("Decrypted message:", decrypted_text)
+    return decrypted_text
 
 if __name__=="__main__":
     main()
