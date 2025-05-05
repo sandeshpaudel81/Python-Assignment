@@ -73,6 +73,36 @@ def write_largest_temp_range():
         f.write("Largest Temperature Range Stations:\n")
         for stn in max_range_stations:
             f.write(f"{stn}\n")
+
+def write_warmest_coolest_stations():
+    # defining dictionary to store average temperature for each station
+    station_avg_temp = defaultdict(float)
+
+    # finding average temperature for each station
+    for station, temps in station_temperatures.items():
+        station_avg_temp[station] = sum(temps)/len(temps)
+
+    # finding max and min average temperatures among all stations
+    max_avg = max(station_avg_temp.values())
+    min_avg = min(station_avg_temp.values())
+
+    # finding one or more warmest stations with largest average temperature
+    max_avg_stations = [key for key in station_avg_temp if station_avg_temp[key] == max_avg]
+    # finding one or more coolest stations with smallest average temperature
+    min_avg_stations = [key for key in station_avg_temp if station_avg_temp[key] == min_avg]
+
+    with open('warmest_and_coolest_station.txt', 'w') as f:
+        # writing  one or more warmest stations
+        f.write("Warmest Stations:\n")
+        for stn in max_avg_stations:
+            f.write(f"{stn}\n")
+
+        f.write("\n")
+
+        # writing  one or more coolest stations
+        f.write("Coolest Stations:\n")
+        for stn in min_avg_stations:
+            f.write(f"{stn}\n")
     
 
 
@@ -84,10 +114,11 @@ def write_season_average_temp():
             f.write(f"{season}: {avg:.2f} C\n")
 
 def main():
-    # aggregate_seasonal_temp()
-    # write_season_average_temp()
+    aggregate_seasonal_temp()
+    write_season_average_temp()
     aggregate_station_temp()
     write_largest_temp_range()
+    write_warmest_coolest_stations()
 
 
 if __name__=="__main__":
