@@ -1,5 +1,6 @@
 import os
 import csv
+from collections import defaultdict
 
 season_temperature = {
     'Summer': [],
@@ -7,6 +8,12 @@ season_temperature = {
     'Winter': [],
     'Spring': []
 }
+
+# dictionary to store all temperatures of each station
+# key: station (string)
+# value: temperatures (list)
+# defaultdict to provide a default value for a nonexistent key in the dictionary
+station_temperatures = defaultdict(list)
 
 def aggregate_seasonal_temp():
     for filename in os.listdir('./temperature_data'):
@@ -35,6 +42,40 @@ def aggregate_seasonal_temp():
                 except ValueError:
                     continue
 
+def aggregate_station_temp():
+    for filename in os.listdir('./temperature_data'):
+        with open(os.path.join('./temperature_data', filename), 'r') as file:
+            csvreader = csv.reader(file)
+            header = next(csvreader)
+            for row in csvreader:
+                try:
+                    # Monthly temperature starts from index 4 (January) and ends to index 15 (December)
+                    for i in range(4,16):
+                        # appending all temperatures of each station separately
+                        station_temperatures[row[0]].append(float(row[i]))
+                except ValueError:
+                    continue
+
+def write_largest_temp_range():
+    # defining dictionary to store temperature ranges for each station
+    temp_range = defaultdict(float)
+
+    # finding temperature ranges for each station using min and max temperatures
+    for station, temps in station_temperatures.items():
+        temp_range[station] = max(temps) - min(temps)
+
+    # finding largest range among all stations
+    max_range = max(temp_range.values())
+
+    # finding one or more stations with largest temperature range and writing them on file
+    max_range_stations = [key for key in temp_range if temp_range[key] == max_range]
+    with open('largest_temp_range_station.txt', 'w') as f:
+        f.write("Largest Temperature Range Stations:\n")
+        for stn in max_range_stations:
+            f.write(f"{stn}\n")
+    
+
+
 # part A - writing average of each season
 def write_season_average_temp():
     with open('average_temp.txt', 'w') as f:
@@ -43,8 +84,10 @@ def write_season_average_temp():
             f.write(f"{season}: {avg:.2f} C\n")
 
 def main():
-    aggregate_seasonal_temp()
-    write_season_average_temp()
+    # aggregate_seasonal_temp()
+    # write_season_average_temp()
+    aggregate_station_temp()
+    write_largest_temp_range()
 
 
 if __name__=="__main__":
