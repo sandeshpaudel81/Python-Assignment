@@ -37,66 +37,35 @@ def decrypt(text, m, n):
 
     for char in text:
         if 'a' <= char <= 'z':
-            # Try both decryption paths — only one will land back in a valid 'a-m' or 'n-z' range
-            forward_shift = (ord(char) - ord('a') - n * m) % 26
-            backward_shift = (ord(char) - ord('a') + (n + m)) % 26
-            if chr(ord('a') + backward_shift) <= 'm':
-                decrypted_text += chr(ord('a') + forward_shift)
+            # We reverse by applying the inverse of the transformation
+            # Try reversing both rules, and pick the one that encrypts back to this char
+            # First: try reverse of rule 1 (original a-m → was shifted forward by n*m)
+            original_1 = (ord(char) - ord('a') - n * m) % 26
+            forward_candidate = chr(ord('a') + original_1)
+
+            if forward_candidate <= 'm':
+                decrypted_text += forward_candidate
             else:
-                decrypted_text += chr(ord('a') + backward_shift)
+                # Must have been from n-z → reverse shift of (n + m)
+                original_2 = (ord(char) - ord('a') + (n + m)) % 26
+                decrypted_text += chr(ord('a') + original_2)
 
         elif 'A' <= char <= 'Z':
-            backward_shift = (ord(char) - ord('A') + n) % 26
-            forward_shift = (ord(char) - ord('A') - m ** 2) % 26
-            if chr(ord('A') + backward_shift) <= 'M':
-                decrypted_text += chr(ord('A') + backward_shift)
+            # First: reverse rule 1 (A-M → was shifted backward by n)
+            original_1 = (ord(char) - ord('A') + n) % 26
+            forward_candidate = chr(ord('A') + original_1)
+
+            if forward_candidate <= 'M':
+                decrypted_text += forward_candidate
             else:
-                decrypted_text += chr(ord('A') + forward_shift)
+                # Must have been from N-Z → was shifted forward by m^2 → undo with -m^2
+                original_2 = (ord(char) - ord('A') - m**2) % 26
+                decrypted_text += chr(ord('A') + original_2)
 
         else:
             decrypted_text += char
 
     return decrypted_text
-# def decrypt(encrypted_text, m, n):
-#     decrypted_text = ''
-#     for char in encrypted_text:
-        
-#         # logic for lowercase letters
-#         if 'a' <= char <= 'z':
-#             # Originally from a-m (shifted forward by n * m)
-#             if char <= 'm':
-#                 shift_value = n * m
-#                 remaining_shift = (ord(char) - ord('a') - shift_value) % 26
-#                 transformed_char = chr(ord('a') + remaining_shift)
-#                 decrypted_text += transformed_char
-
-#             # Originally from n-z (shifted backward by n + m)
-#             else:
-#                 shift_value = n + m
-#                 remaining_shift = (ord(char) - ord('a') + shift_value) % 26
-#                 transformed_char = chr(ord('a') + remaining_shift)
-#                 decrypted_text += transformed_char
-
-#         # logic for uppercase letters
-#         elif 'A' <= char <= 'Z':
-#             # Originally from A-M (shifted backward by n)
-#             if char <= 'M':
-#                 shift_value = n
-#                 remaining_shift = (ord(char) - ord('A') + shift_value) % 26
-#                 transformed_char = chr(ord('A') + remaining_shift)
-#                 decrypted_text += transformed_char
-
-#             # Originally from N-Z (shifted forward by m^2)
-#             else:
-#                 shift_value = m ** 2
-#                 remaining_shift = (ord(char) - ord('A') - shift_value) % 26
-#                 transformed_char = chr(ord('A') + remaining_shift)
-#                 decrypted_text += transformed_char
-
-#         # logic for non-alphabetic characters
-#         else:
-#             decrypted_text += char
-#     return decrypted_text
 
 if __name__=="__main__":
     main()
