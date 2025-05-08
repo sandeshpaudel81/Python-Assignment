@@ -1,5 +1,5 @@
 def main():
-    user_m = input('Enter the value of m:')
+    user_m = input('Enter the value of m: ')
     try:
         m = int(user_m)
     except ValueError:
@@ -15,7 +15,7 @@ def main():
                 m = 0
                 print("Your input is set as defalut value: ", m)
 
-    user_n = input('Enter the value of n:')
+    user_n = input('Enter the value of n: ')
     try:
         n = int(user_n)
     except ValueError:
@@ -38,7 +38,7 @@ def main():
         f.write("Encrypted text:\n")
         f.write(f"{enc_text}")
     dec_text = decrypt(enc_text, m, n)
-    print("Decrypted text:", dec_text)
+    check_correctness(text, dec_text)
 
 # Encryption function
 def encrypt(text, m, n):
@@ -85,6 +85,12 @@ def decrypt(text, m, n):
         else:
             decrypted_text += char
     return decrypted_text
+
+def check_correctness(original_text, dec_text):
+    if original_text == dec_text:
+        print("Correct decryption")
+    else:
+        print("Incorrect decryption")
 
 if __name__=="__main__":
     main()
