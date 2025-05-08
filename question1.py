@@ -40,7 +40,13 @@ def main():
     dec_text = decrypt(enc_text, m, n)
     check_correctness(text, dec_text)
 
-# Encryption function
+"""
+Function for the Encryption
+ This function encrypts the input text by applying custom shift logic to alphabetic characters.
+Here lowercase and uppercase letters are processed differently.
+Each half of the alphabet ('a'-'m', 'n'-'z', 'A'-'M', 'N'-'Z') shifted using formulas involving
+the parameters m and n. Non-alphabetic characters remain unchanged.
+"""
 def encrypt(text, m, n):
     encrypted_text = ''
     for char in text:
