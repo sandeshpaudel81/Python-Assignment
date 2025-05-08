@@ -50,7 +50,6 @@ def decrypt(text, m, n):
             else:  # second half
                 shift = (ord(char) - ord('N') - m ** 2) % 13
                 decrypted_text += chr(ord('N') + shift)
-
         else:
             decrypted_text += char
     return decrypted_text
