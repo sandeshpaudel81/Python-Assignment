@@ -1,10 +1,42 @@
 def main():
-    m = int(input('Enter the value of m:'))
-    n = int(input('Enter the value of n:'))
+    user_m = input('Enter the value of m:')
+    try:
+        m = int(user_m)
+    except ValueError:
+        try:
+            float_m = float(user_m)
+            m= int(round(float_m,0))
+            print("Your input is rounded to ", m)
+        except ValueError:
+            ascii_values = [ord(char) for char in user_m]
+            m = round(sum(ascii_values),0)
+            print("Your input is converted to integer number: ", m)
+            if type(m) != int:
+                m = 0
+                print("Your input is set as defalut value: ", m)
+
+    user_n = input('Enter the value of n:')
+    try:
+        n = int(user_n)
+    except ValueError:
+        try:
+            float_n = float(user_n)
+            n= int(round(float_n,0))
+            print("Your input is rounded to ", m)
+        except ValueError:
+            ascii_values = [ord(char) for char in user_n]
+            n = round(sum(ascii_values),0)
+            print("Your input is converted to integer number: ", n)
+            if type(n) != int:
+                n = 0
+                print("Your input is set as defalut value: ", n)
+
     file = open("raw_text.txt", "r")
     text = file.read()
     enc_text = encrypt(text, m, n)
-    print(enc_text)
+    with open('encrypted_text.txt', 'w') as f:
+        f.write("Encrypted text:\n")
+        f.write(f"{enc_text}")
     dec_text = decrypt(enc_text, m, n)
     print("Decrypted text:", dec_text)
 
