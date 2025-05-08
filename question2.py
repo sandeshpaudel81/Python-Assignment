@@ -103,8 +103,6 @@ def write_warmest_coolest_stations():
         f.write("Coolest Stations:\n")
         for stn in min_avg_stations:
             f.write(f"{stn}\n")
-    
-
 
 # part A - writing average of each season
 def write_season_average_temp():
