@@ -9,6 +9,7 @@ def main():
     dec_text = decrypt(enc_text, m, n)
     print("Decrypted text:", dec_text)
 
+# Encryption function
 def encrypt(text, m, n):
     encrypted_text = ''
     for char in text:
