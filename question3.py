@@ -2,29 +2,21 @@ import turtle
 
 def drawTree(left_angle, right_angle, starting_branch_length, recursion_depth, branch_reduction_factor):
     ttl = turtle.Turtle()
-
     ttl.left(90)
     ttl.penup()
     ttl.goto(0, -250)
     ttl.pendown()
-
     def branch(length, depth):
-
         if depth > 0: 
-            ttl.forward(length)
-    
-            ttl.right(right_angle) 
-    
+            ttl.forward(length)    
+            ttl.right(right_angle)    
             # recursive call for 
             # the right subtree 
-            branch(int(branch_reduction_factor * length), depth-1) 
-            
-            ttl.left(right_angle+left_angle) 
-    
+            branch(int(branch_reduction_factor * length), depth-1)            
+            ttl.left(right_angle+left_angle)    
             # recursive call for 
             # the left subtree 
-            branch(int(branch_reduction_factor * length), depth-1) 
-            
+            branch(int(branch_reduction_factor * length), depth-1)            
             ttl.right(right_angle) 
             ttl.forward(-length) 
 
@@ -101,9 +93,8 @@ def main():
         if type(float_branch_percent) != float:
             float_branch_percent = 0.0
             print("Your input is set as defalut value: ", float_branch_percent)
-
+            
     branch_reduction_factor = float(float_branch_percent/100)
-
     drawTree(float_lt_ang, float_rt_ang, int_starting_length, int_recursion_depth, branch_reduction_factor)
 
 
