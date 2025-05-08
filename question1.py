@@ -64,6 +64,7 @@ def encrypt(text, m, n):
             encrypted_text += char
     return encrypted_text
 
+# Decryption Function
 def decrypt(text, m, n):
     decrypted_text = ''
     for char in text:
@@ -86,6 +87,7 @@ def decrypt(text, m, n):
             decrypted_text += char
     return decrypted_text
 
+# Decryption Status Check
 def check_correctness(original_text, dec_text):
     if original_text == dec_text:
         print("Correct decryption")
