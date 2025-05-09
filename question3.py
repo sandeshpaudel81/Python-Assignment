@@ -28,11 +28,70 @@ def draw_branch(t, branch_length, left_angle, right_angle, depth, reduction_fact
 
 def main():
     # User inputs
-    left_angle = float(input("Enter left branch angle (degrees): "))
-    right_angle = float(input("Enter right branch angle (degrees): "))
-    start_length = float(input("Enter starting branch length: "))
-    depth = int(input("Enter recursion depth: "))
-    reduction_factor = float(input("Enter branch length reduction factor (e.g., 0.7): "))
+    left_angle = input("Enter left branch angle (degrees): ")
+    try:
+        float_lt_ang = float(left_angle)
+    except ValueError:
+        ascii_values = [ord(char) for char in left_angle]
+        float_lt_ang = float(sum(ascii_values))
+        print("Your input is converted to float number", float_lt_ang)
+        if type(float_lt_ang) != float:
+            float_lt_ang = 0.0
+            print("Your input is set as defalut value: ", float_lt_ang)
+
+    right_angle = input("Enter right branch angle (degrees): ")
+    try:
+        float_rt_ang = float(right_angle)
+    except ValueError:
+        ascii_values = [ord(char) for char in right_angle]
+        float_rt_ang = float(sum(ascii_values))
+        print("Your input is converted to float number: ", float_rt_ang)
+        if type(float_rt_ang) != float:
+            float_rt_ang = 0.0
+            print("Your input is set as defalut value: ", float_rt_ang)
+
+    start_length = input("Enter starting branch length: ")
+    try:
+        int_starting_length = int(start_length)
+    except ValueError:
+        try:
+            float_starting_length = float(start_length)
+            int_starting_length= int(round(float_starting_length,0))
+            print("Your input is rounded to ", int_starting_length)
+        except ValueError:
+            ascii_values = [ord(char) for char in start_length]
+            int_starting_length = round(sum(ascii_values),0)
+            print("Your input is converted to integer number: ", int_starting_length)
+            if type(int_starting_length) != int:
+                int_starting_length = 0
+                print("Your input is set as defalut value: ", int_starting_length)
+
+    depth = input("Enter recursion depth: ")
+    try:
+        int_recursion_depth = int(depth)
+    except ValueError:
+        try:
+            float_recursion_depth = float(depth)
+            int_recursion_depth= int(round(float_recursion_depth,0))
+            print("Your input is rounded to ", int_recursion_depth)
+        except ValueError:
+            ascii_values = [ord(char) for char in depth]
+            int_recursion_depth = round(sum(ascii_values),0)
+            print("Your input is converted to integer number: ", int_recursion_depth)
+            if type(int_recursion_depth) != int:
+                int_recursion_depth = 0
+                print("Your input is set as defalut value: ", int_recursion_depth)
+
+    reduction_factor = input("Enter branch length reduction factor (e.g., 0.7): ")
+    try:
+        float_branch_percent = float(reduction_factor)
+    except ValueError:
+        ascii_values = [ord(char) for char in reduction_factor]
+        float_branch_percent = float(sum(ascii_values))
+        print("Your input is converted to float number: ", float_branch_percent)
+        if type(float_branch_percent) != float:
+            float_branch_percent = 0.0
+            print("Your input is set as defalut value: ", float_branch_percent)
 
     # Turtle setup
     screen = turtle.Screen()
@@ -48,7 +107,7 @@ def main():
     t.goto(0, -250)
     t.pendown()
 
-    draw_branch(t, start_length, left_angle, right_angle, depth, reduction_factor)
+    draw_branch(t, int_starting_length, float_lt_ang, float_rt_ang, int_recursion_depth, float_branch_percent)
     t.hideturtle()
 
     screen.mainloop()
