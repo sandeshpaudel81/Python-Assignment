@@ -66,7 +66,7 @@ def write_largest_temp_range():
     for station, temps in station_temperatures.items():
         temp_range[station] = max(temps) - min(temps)
 
-    # finding largest range among all stations
+    # finding largest range among the temperature of all stations
     max_range = max(temp_range.values())
 
     # finding one or more stations with largest temperature range and writing them on file
@@ -80,7 +80,7 @@ def write_warmest_coolest_stations():
     # defining dictionary to store average temperature for each station
     station_avg_temp = defaultdict(float)
 
-    # finding average temperature for each station
+    # finding average temperature for each of the stations
     for station, temps in station_temperatures.items():
         station_avg_temp[station] = sum(temps)/len(temps)
 
