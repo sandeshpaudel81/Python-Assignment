@@ -28,7 +28,7 @@ def draw_branch(t, branch_length, left_angle, right_angle, depth, reduction_fact
 
 
 def main():
-    # User inputs
+    # Input from user
     # Getting an user inputs and handling exceptions
 
     # Left branch angle
@@ -54,8 +54,8 @@ def main():
         if type(float_rt_ang) != float:
             float_rt_ang = 0.0
             print("Your input is set as defalut value: ", float_rt_ang)
-
-    # Branch Starting Length
+            
+    # Starting Length of Branch
     start_length = input("Enter starting branch length: ")
     try:
         int_starting_length = int(start_length)
