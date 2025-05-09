@@ -1,5 +1,6 @@
 import turtle
 
+# Function to draw branch recursively
 def draw_branch(t, branch_length, left_angle, right_angle, depth, reduction_factor):
     if depth == 0:
         return
@@ -28,6 +29,9 @@ def draw_branch(t, branch_length, left_angle, right_angle, depth, reduction_fact
 
 def main():
     # User inputs
+    # Getting an user inputs and handling exceptions
+
+    # Left branch angle
     left_angle = input("Enter left branch angle (degrees): ")
     try:
         float_lt_ang = float(left_angle)
@@ -39,6 +43,7 @@ def main():
             float_lt_ang = 0.0
             print("Your input is set as defalut value: ", float_lt_ang)
 
+    # Right branch angle
     right_angle = input("Enter right branch angle (degrees): ")
     try:
         float_rt_ang = float(right_angle)
@@ -50,6 +55,7 @@ def main():
             float_rt_ang = 0.0
             print("Your input is set as defalut value: ", float_rt_ang)
 
+    # Branch Starting Length
     start_length = input("Enter starting branch length: ")
     try:
         int_starting_length = int(start_length)
@@ -66,6 +72,7 @@ def main():
                 int_starting_length = 0
                 print("Your input is set as defalut value: ", int_starting_length)
 
+    # Recursion depth for number of branches
     depth = input("Enter recursion depth: ")
     try:
         int_recursion_depth = int(depth)
@@ -82,6 +89,7 @@ def main():
                 int_recursion_depth = 0
                 print("Your input is set as defalut value: ", int_recursion_depth)
 
+    # Branch reduction factor with respect to parent branch
     reduction_factor = input("Enter branch length reduction factor (e.g., 0.7): ")
     try:
         float_branch_percent = float(reduction_factor)

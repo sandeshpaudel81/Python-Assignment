@@ -8,11 +8,13 @@ season_temperature = {
     'Winter': [],
     'Spring': []
 }
-
-# dictionary to store all temperatures of each station
-# key: station (string)
-# value: temperatures (list)
+"""
+dictionary to store all temperatures of each station
+key: station (string)
+value: temperatures (list)
 # defaultdict to provide a default value for a nonexistent key in the dictionary
+"""
+
 station_temperatures = defaultdict(list)
 
 def aggregate_seasonal_temp():
